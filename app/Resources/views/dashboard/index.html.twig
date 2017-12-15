@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Dashboard</h1>
+    <div class="row">
+        <div class="col-xs-6">
+            <h2>Managers</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id </th>
+                    <th>Firstname </th>
+                    <th>Lastname </th>
+                    <th>Title </th>
+                </tr>
+                </thead>
+                <tbody class="table-striped">
+                {% for manager in managers %}
+                    <tr>
+                        <td>{{ manager.id }}</td>
+                        <td>{{ manager.firstName }}</td>
+                        <td>{{ manager.lastName }}</td>
+                        <td>{{ manager.title }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-6">
+            <h2>Projets</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id </th>
+                    <th>Name </th>
+                    <th>Datebegin </th>
+                    <th>Dateend </th>
+                </tr>
+                </thead>
+                <tbody class="table-striped">
+                {% for projet in projects %}
+                    <tr>
+                        <td>{{ projet.id }}</td>
+                        <td>{{ projet.projectName }}</td>
+                        <td>{% if projet.dateBegin %}{{ projet.dateBegin|date('Y-m-d') }}{% endif %}</td>
+                        <td>{% if projet.dateEnd %}{{ projet.dateEnd|date('Y-m-d') }}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-xs-12">
+            <h2>Fiches</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Project</th>
+                    <th>Manager</th>
+                    <th>CreationDate</th>
+                    <th>Nbdaydone</th>
+                    <th>Nbdaysold</th>
+                    <th>Progression</th>
+                    <th>Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fiche in fiches %}
+                    <tr>
+                        <td>{{ fiche.id }}</td>
+                        <td>{{ fiche.project }}</td>
+                        <td>{{ fiche.manager }}</td>
+                        <td>{% if fiche.ficheDate %}{{ fiche.ficheDate|date('Y-m-d') }}{% endif %}</td>
+                        <td>{{ fiche.nbDayDone }}</td>
+                        <td>{{ fiche.nbDaySold }}</td>
+                        <td>{{ fiche.progression }}</td>
+                        <td>{{ fiche.comment }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
