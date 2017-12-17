@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Dashboard</h1>
+        <hr />
+        <div class="flexRow">
+            <div class="projectsContainer">
+                <h2>Liste des projets en cours</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <th>Nom du projet</th>
+                        <th>Progression</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        {% for projet in projets %}
+                        <tr>
+                            <td>{{ projet }}</td>
+                            <td>{{ projet.progression }} %</td>
+                            <td>
+                                <a class="btn btn-default btn-sm" href="{{ path('projet_show', {'id': projet.id}) }}">Voir</a>
+                                <a class="btn btn-primary btn-sm" href="{{ path('projet_edit', {'id': projet.id}) }}">Éditer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="managerContainer">
+                <h2>Liste des managers</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Poste</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        {% for manager in managers %}
+                            <tr>
+                                <td>{{ manager.lastName }}</td>
+                                <td>{{ manager.firstName }}</td>
+                                <td>{{ manager.title }}</td>
+                                <td>
+                                    <a class="btn btn-default btn-sm" href="{{ path('manager_show', {'id': manager.id}) }}">Voir</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ path('manager_edit', {'id': manager.id}) }}">Éditer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+
+            {% if fiches is empty %}
+                <p class="notFound">Aucune fiche trouvée pour le projet sélectionné</p>
+            {% else %}
+                <table class="table table-hover fichesContent">
+                    <thead>
+                        <th>Date</th>
+                        <th>Projet</th>
+                        <th>Consommé</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        {% for fiche in fiches %}
+                            <tr>
+                                <td>{{ fiche.ficheDate|date("m/d/Y") }}</td>
+                                <td>{{ fiche.projet }}</td>
+                                <td>{{ fiche.nbDayDone/fiche.nbDaySold * 100 }} %</td>
+                                <td>
+                                    <a class="btn btn-default" href="{{ path('fiche_show', {'id': fiche.id}) }}">Voir</a>
+                                    <a class="btn btn-primary" href="{{ path('fiche_edit', {'id': fiche.id}) }}">Éditer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+        .fichesHeader {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fichesHeader #form {
+            display: inline-flex;
+            align-items: flex-end;
+        }
+        .notFound {
+            text-align: center;
+        }
+        .flexRow {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 5rem;
+        }
+        .projectsContainer {
+            flex: 1;
+        }
+        .managerContainer {
+            flex: 1;
+        }
+        .separator {
+            flex: 0.1;
+        }
+        .formContainer {
+            display: inline-flex;
+            align-items: center;
+        }
+        /* Margin top is required to align the reset butitn with the send one
+        as bootstrap applies a margin to its form groups */
+        .resetButton {
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+    </style>
+{% endblock %}
