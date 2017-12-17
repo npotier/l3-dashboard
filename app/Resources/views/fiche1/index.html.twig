@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Fiche1s list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Projectname</th>
+                <th>Fichedate</th>
+                <th>Nbdaydone</th>
+                <th>Nbdaysold</th>
+                <th>Progression</th>
+                <th>Comment</th>
+                <th>Creater</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fiche1 in fiche1s %}
+            <tr>
+                <td><a href="{{ path('fiche1_show', { 'id': fiche1.id }) }}">{{ fiche1.projectName }}</a></td>
+                <td>{% if fiche1.ficheDate %}{{ fiche1.ficheDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ fiche1.nbDayDone }}</td>
+                <td>{{ fiche1.nbDaySold }}</td>
+                <td>{{ fiche1.progression }}</td>
+                <td>{{ fiche1.comment }}</td>
+                <td>{{ fiche1.creater }}</td>
+                <td>{{ fiche1.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('fiche1_show', { 'id': fiche1.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fiche1_edit', { 'id': fiche1.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('fiche1_new') }}">Create a new fiche1</a>
+        </li>
+    </ul>
+{% endblock %}
