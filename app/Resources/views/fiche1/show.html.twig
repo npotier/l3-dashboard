@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Fiche1</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Projectname</th>
+                <td>{{ fiche1.projectName }}</td>
+            </tr>
+            <tr>
+                <th>Fichedate</th>
+                <td>{% if fiche1.ficheDate %}{{ fiche1.ficheDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nbdaydone</th>
+                <td>{{ fiche1.nbDayDone }}</td>
+            </tr>
+            <tr>
+                <th>Nbdaysold</th>
+                <td>{{ fiche1.nbDaySold }}</td>
+            </tr>
+            <tr>
+                <th>Progression</th>
+                <td>{{ fiche1.progression }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ fiche1.comment }}</td>
+            </tr>
+            <tr>
+                <th>Creater</th>
+                <td>{{ fiche1.creater }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ fiche1.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('fiche1_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('fiche1_edit', { 'id': fiche1.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,65 @@
+camille_platform_manager:
+    resource: "@CamillePlatformBundle/Resources/config/routing/manager.xml"
+    prefix:   /manager
+
+camille_platform_projet:
+    resource: "@CamillePlatformBundle/Resources/config/routing/projet.xml"
+    prefix:   /projet
+
+camille_platform_user:
+    resource: "@CamillePlatformBundle/Resources/config/routing/user.xml"
+    prefix:   /user
+    
+camille_platform_fiche1:
+    resource: "@CamillePlatformBundle/Resources/config/routing/fiche1.xml"
+    prefix:   /fiche1
+#camille_platform_homepage:
+ #   path:     /
+ #   defaults: { _controller: CamillePlatformBundle:Default:index }
+# src/OC/PlatformBundle/Resources/config/routing.yml
+
+
+hello_the_world:
+
+    path:     /hello-world
+
+    defaults: { _controller: CamillePlatformBundle:Advert:index }
+
+# src/Camille/PlatformBundle/Resources/config/routing.yml
+
+camille_platform_home:
+
+    path:      /platform/
+
+    defaults: { _controller: CamillePlatformBundle:Advert:index }
+
+
+camille_platform_view:
+
+    path:      /platform/advert/{id}
+
+    defaults: { _controller: CamillePlatformBundle:Advert:view }
+
+
+camille_platform_add:
+
+    path:      /platform/add
+
+    defaults: { _controller: CamillePlatformBundle:Advert:add }
+
+# src/Camille/PlatformBundle/Resources/config/routing.yml
+
+camille_platform_view_slug:
+    path:      /platform/{year}/{slug}.{format}
+    defaults:
+        _controller: CamillePlatformBundle:Advert:viewSlug
+        format:      html
+    requirements:
+        year:   \d{4}
+        format: html|xml
+
+# src/Camille/PlatformBundle/Resources/config/routing.yml
+
+bye_the_world:
+    path:     /bye-world
+    defaults: { _controller: CamillePlatformBundle:Advert:byeworld }

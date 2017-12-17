@@ -1,9 +1,4 @@
-# l3-dashboard
-Projet Dashboard réalisé par les étudiants de L3 (12/2017)
+Symfony
+=======
 
-
-## TODO : 
-
-* forker le projet
-* commiter votre travail
-* faire une pull request avec votre code, en indiquant votre nom et prénom
+A Symfony project created on December 5, 2017, 3:22 pm.
