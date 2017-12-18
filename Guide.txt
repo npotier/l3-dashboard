@@ -1,0 +1,94 @@
+1. Telecharger Composer
+
+2.Lancer php composer.phar install
+
+3.Lancer php composer.phar create-project symfony/framework-standard-edition NewProject
+
+4. Ce deplacer dans le projet et lancer php bin/console server:run
+
+5. Creer la base de donnée  avec
+php bin/console doctrine:database:create
+
+6.Creer les champs de la base de donnée
+php bin/console doctrine:generate:entity
+AppBundle:Fiche => Nom de la table
+ProjetName
+NbDayDone
+NbDay....
+etc..
+
+7. Lancer :
+php bin/console doctrine:schema:update --dump-sql --force
+pour actualiser la base.
+
+8.Lancer php bin/console doctrine:generate:crud pour chaque entity
+The Entity shortcut name: "AppBundle:Fiche"
+(writeaction : yes)
+
+9. Modifier DefaultController.php :
+<?php
+namespace AppBundle\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
+class DefaultController extends Controller
+{
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function indexAction(Request $request)
+    {
+        $entityManager = $this->container->
+        get('doctrine.orm.entity_manager');
+        $fiches = $entityManager
+        ->getRepository('AppBundle:Fiche')
+        ->findAll();
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT f 
+            FROM AppBundle:Fiche f
+            WHERE f.ficheDate > :date')->setParameter('date', new \Datetime ());
+
+        $fiche = $query->getResult();
+
+        // replace this example code with whatever you need
+        return $this->render('default/index.html.twig', [
+            'fiches' => $fiches
+
+        ]);
+    }
+
+}
+
+
+
+10. Ajouter boostrap : dans base.html.twig :
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" media="screen">
+11.Rajouter dans config.yml au niveau de #Twig config:
+    form_themes:
+        -  'bootstrap_3_layout.html.twig'
+
+12.Ajouter dans Fiche.php (le fichier qu'il a généré automatiquement), au niveau de la variable "$private $nbDayDone"
+* @Assert\GreaterThan(0)
+afin de verifier que les données envoyées par le fomulaire, ici le variable $private $nbDayDone ne peut pas être négative.
+et 
+use Symfony\Component\Validator\Constraints as Assert;
+au debut afin d'utiliser Assert.
+
+13. Creer les tables : Projet et Manager (comme l'etape 6, 7, 8 )
+
+
+
+14.Encoder un mdp :
+php bin/console security:encode-password
+
+
+EasyAdminBundle => paquet qui gere les droits automatiquement.
+
+Github : https://github.com/npotier/l3-dashboard
+
+
+
+
